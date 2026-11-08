@@ -73,8 +73,8 @@
   background: linear-gradient(transparent, #101c25d9);
   pointer-events: none;
 }
-.slideshow-credit h2 { margin: 2px 0 0; color: white; font: bold 22px Tahoma, Arial, sans-serif; text-shadow: 1px 1px #111; }
-.slideshow-caption { color: #e6c891; font: bold 9px Arial, sans-serif; letter-spacing: 1px; }
+.slideshow-credit h2 { margin: 2px 0 0; color: white; font: bold 30px Tahoma, Arial, sans-serif; text-shadow: 1px 1px #111; }
+.slideshow-caption { color: #e6c891; font: bold 12px Arial, sans-serif; letter-spacing: 1px; }
 .slide-count { color: white; font-size: 11px; text-shadow: 1px 1px #111; }
 .slide-arrow {
   position: absolute;
@@ -92,7 +92,7 @@
 .slide-arrow:hover { background: #174e76e8; }
 .slide-previous { left: 8px; }
 .slide-next { right: 8px; }
-.slideshow-status { min-height: 27px; padding: 7px 2px 0; color: #61798b; font-size: 10px; }
+.slideshow-status { min-height: 27px; padding: 7px 2px 0; color: #61798b; font-size: 12px; }
 .qr-panel {
   padding: 12px;
   border: 1px solid #9db7c8;
@@ -124,7 +124,8 @@
   .qr-link { grid-column: 1; grid-row: 1 / span 3; min-height: 82px; padding: 3px; }
   .qr-link img { width: 82px; }
   .qr-hint { grid-column: 2; margin-top: 3px; }
-  .slideshow-credit h2 { font-size: 18px; }
+  .slideshow-credit h2 { font-size: 24px; }
+  .slideshow-caption { font-size: 11px; }
   .slideshow-empty strong { font-size: 13px; }
   .slideshow-empty span:last-child { font-size: 10px; }
 }
