@@ -114,6 +114,24 @@
     return typeof result === "string" ? result : result.id;
   }
 
+  async function deletePartyPhoto(photoId, password) {
+    const response = await request("/functions/v1/admin-delete", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ type: "photo", id: photoId, password: password })
+    });
+    return checkResponse(response).then(function (result) { return result.json(); });
+  }
+
+  async function deleteProfile(profileId, password) {
+    const response = await request("/functions/v1/admin-delete", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ type: "profile", id: profileId, password: password })
+    });
+    return checkResponse(response).then(function (result) { return result.json(); });
+  }
+
   function getPhotoUrl(path) {
     if (!apiUrl) return "";
     return apiUrl + "/storage/v1/object/public/party-photos/" + path.split("/").map(encodeURIComponent).join("/");
@@ -122,6 +140,8 @@
   window.GalleryBackend = {
     addPartyPhoto: addPartyPhoto,
     createProfile: createProfile,
+    deletePartyPhoto: deletePartyPhoto,
+    deleteProfile: deleteProfile,
     getPhotoUrl: getPhotoUrl,
     loadPhotos: loadPhotos,
     loadProfiles: loadProfiles,

@@ -1,0 +1,2 @@
+[functions.admin-delete]
+verify_jwt = false

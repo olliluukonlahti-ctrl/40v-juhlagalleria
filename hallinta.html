@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="fi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#28649d">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Kuvien hallinta — 40v. Juhlagalleria</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="admin.css">
+    <script src="config.js"></script>
+    <script src="backend.js" defer></script>
+    <script src="admin.js" defer></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <div class="masthead">
+          <a class="brand" href="index.html" aria-label="Takaisin juhlagalleriaan">
+            <span class="brand-mark" aria-hidden="true">☺</span>
+            <span>IRC<span class="brand-accent">-Juhlagalleria</span></span>
+          </a>
+          <div class="header-note">JÄRJESTÄJÄN HALLINTA</div>
+        </div>
+        <nav class="main-nav" aria-label="Päänavigaatio">
+          <a href="index.html">Etusivu</a>
+          <a href="naytto.html">Juhlanäyttö</a>
+        </nav>
+      </header>
+      <main class="admin-main">
+        <section class="box-title"><h1>Kuvien hallinta</h1></section>
+        <p>Vain järjestäjä voi poistaa kuvia. Syötä ylläpitäjän salasana kuvien avaamiseksi. Salasanaa ei tallenneta tähän selaimeen.</p>
+        <form id="admin-password-form" class="admin-password-form">
+          <label class="field-label" for="admin-password">Ylläpitäjän salasana</label>
+          <input id="admin-password" type="password" autocomplete="current-password" minlength="16" required>
+          <button class="primary-button" type="submit">Avaa kuvien hallinta »</button>
+        </form>
+        <p id="admin-message" class="form-message" role="status" aria-live="polite"></p>
+        <div class="admin-section-heading">
+          <h2>Profiilit</h2>
+          <button id="admin-reload" class="admin-reload-button" type="button">Päivitä kuvat</button>
+        </div>
+        <div id="admin-profiles" class="admin-list" aria-live="polite"></div>
+        <section>
+          <h2>Nimettömät juhlakuvat</h2>
+          <div id="admin-photos" class="admin-list" aria-live="polite"></div>
+        </section>
+        <p class="admin-warning">Profiilin poisto poistaa samalla nimimerkin ja kaikki sen profiilikuvat. Nimettömän kuvan poisto poistaa sen myös juhlanäytöstä.</p>
+      </main>
+      <footer class="site-footer">
+        <span>IRC-Juhlagalleria &copy; 2026</span>
+        <a href="index.html">« Takaisin galleriaan</a>
+      </footer>
+    </div>
+  </body>
+</html>

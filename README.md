@@ -27,3 +27,18 @@ Tarvitset Supabase-projektin. Sovellus on staattinen HTML/CSS/JS, joten sen voi 
 Supabasen URL ja anon/publishable-avain ovat selaimessa näkyviä julkisia tunnisteita, eivät salaisuuksia. Profiilien ja kuvien katselu sekä uuden nimimerkin tai juhlakuvan lisääminen on anonyymisti sallittua; vieraat eivät kirjaudu sisään eikä QR-kuvia sidota profiiliin. Nimimerkin tulee olla yksilöllinen. Älä koskaan laita `service_role`-avainta selaimeen. TV-näkymän QR-koodi luodaan QRServer-palvelussa ja siihen välitetään julkinen `lataa.html`-sivun osoite.
 
 Tuetut, selaimen avaamat puhelinkuvaformaatit tarkistetaan ennen latausta. Kuvat rajataan tarvittaessa enintään 1600 pikseliin ja pakataan JPEG-muotoon; Supabase-säilö valvoo JPEG-tyypin ja 5 Mt:n tallennusrajan. Kuvat näkyvät kaikille juhlanäytössä ja selaimen kuvagalleriassa. `config.js` kuuluu staattiseen julkiseen sivustoon, joten siihen saa laittaa vain anon/publishable-avaimen, ei `service_role`-avainta.
+
+## Järjestäjän kuvien poisto
+
+Järjestäjän hallintasivu on [hallinta.html](https://olliluukonlahti-ctrl.github.io/40v-juhlagalleria/hallinta.html). Poistot vaativat erillisen vähintään 16 merkin ylläpitäjän salasanan. Salasana tarkistetaan Supabase Edge Functionissa, eikä sitä tallenneta julkiseen sivukoodiin. Profiilin poisto poistaa nimimerkin ja sen profiilikuvan; nimettömiä juhlakuvia voi poistaa yksitellen.
+
+Asenna Node.js/npm tarvittaessa, avaa komentorivi tämän repositorion juuressa ja kirjaudu sisään Supabase-tililläsi:
+
+```powershell
+npx supabase login
+npx supabase link --project-ref ufsekycwnainqcnmqxrx
+npx supabase secrets set ADMIN_PASSWORD="VAIHDA_TAHAN_VAHVAAN_OMAAN_SALASANAAN"
+npx supabase functions deploy admin-delete --no-verify-jwt
+```
+
+Korvaa esimerkkiteksti omalla, vähintään 16 merkkiä pitkällä vahvalla salasanalla. Edge Function käyttää Supabasen palvelinpuolen `SUPABASE_SERVICE_ROLE_KEY`-ympäristömuuttujaa kuvien poistoon. Tätä avainta ei saa kopioida `config.js`-tiedostoon tai selaimeen. Jos järjestäjän salasana katoaa, vaihda se samalla `npx supabase secrets set ADMIN_PASSWORD="UUSI_VAHVA_SALASANA"`-komennolla.
