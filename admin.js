@@ -8,6 +8,9 @@
   const photosContainer = document.getElementById("admin-photos");
   const reloadButton = document.getElementById("admin-reload");
   let busy = false;
+  let verified = false;
+
+  reloadButton.disabled = true;
 
   function setMessage(text, isError) {
     message.textContent = text;
@@ -75,6 +78,7 @@
   }
 
   async function loadItems() {
+    if (!verified) return;
     reloadButton.disabled = true;
     try {
       const results = await Promise.all([
@@ -131,7 +135,19 @@
       setMessage("Ylläpitäjän salasanan pitää olla vähintään 16 merkkiä.", true);
       return;
     }
-    loadItems();
+    reloadButton.disabled = true;
+    setMessage("Tarkistetaan salasanaa…", false);
+    window.GalleryBackend.verifyAdminPassword(passwordInput.value)
+      .then(function () {
+        verified = true;
+        return loadItems();
+      })
+      .catch(function (error) {
+        verified = false;
+        setMessage("Ylläpitäjän salasana ei kelpaa: " + error.message, true);
+      });
   });
-  reloadButton.addEventListener("click", loadItems);
+  reloadButton.addEventListener("click", function () {
+    if (verified) loadItems();
+  });
 }());

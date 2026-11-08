@@ -63,6 +63,9 @@ Deno.serve(async (request) => {
   if (typeof body.password !== "string" || !matchesSecret(body.password, configuredPassword)) {
     return jsonResponse(401, "Ylläpitäjän salasana ei kelpaa.");
   }
+  if (body.type === "verify") {
+    return jsonResponse(200, "Ylläpitäjän salasana hyväksytty.");
+  }
   if (!isUuid(body.id) || (body.type !== "photo" && body.type !== "profile")) {
     return jsonResponse(400, "Poistettava kohde ei kelpaa.");
   }

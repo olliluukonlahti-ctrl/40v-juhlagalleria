@@ -123,6 +123,15 @@
     return checkResponse(response).then(function (result) { return result.json(); });
   }
 
+  async function verifyAdminPassword(password) {
+    const response = await request("/functions/v1/admin-delete", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ type: "verify", password: password })
+    });
+    return checkResponse(response).then(function (result) { return result.json(); });
+  }
+
   async function deleteProfile(profileId, password) {
     const response = await request("/functions/v1/admin-delete", {
       method: "POST",
@@ -142,6 +151,7 @@
     createProfile: createProfile,
     deletePartyPhoto: deletePartyPhoto,
     deleteProfile: deleteProfile,
+    verifyAdminPassword: verifyAdminPassword,
     getPhotoUrl: getPhotoUrl,
     loadPhotos: loadPhotos,
     loadProfiles: loadProfiles,
