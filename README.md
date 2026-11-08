@@ -22,7 +22,7 @@ Tarvitset Supabase-projektin. Sovellus on staattinen HTML/CSS/JS, joten sen voi 
    ```
 
 4. Tarjoa hakemiston sisältö HTTPS-sivustona. Avaa juhlan tietokoneella `naytto.html` ja näytä se kokoruututilassa. Vieraat voivat skannata näytön QR-koodin, joka vie `lataa.html`-sivulle.
-5. Testaa: luo `index.html`-sivulla nimimerkki ja profiilikuva. Avaa `naytto.html` ja lähetä puhelimella QR-koodin kautta yksi tai useampia juhlakuvia. Profiilikuvat näkyvät diaesityksessä nimimerkin kanssa; QR-kuvien kohdalla näytetään yleinen kuvateksti ilman nimimerkkiä. Kuvat vaihtuvat näytöllä 10 sekunnin välein ja uudet kuvat ladataan 20 sekunnin välein.
+5. Testaa: luo `index.html`-sivulla nimimerkki ja profiilikuva. Avaa `naytto.html` ja lähetä puhelimella QR-koodin kautta yksi tai useampia juhlakuvia. Profiilikuvat näkyvät diaesityksessä nimimerkin kanssa; QR-kuvien kohdalla näytetään yleinen kuvateksti ilman nimimerkkiä. Kuvat vaihtuvat näytöllä 6 sekunnin välein, ja juhlanäyttö tarkistaa uudet kuvat automaattisesti 2 sekunnin välein ilman manuaalista päivittämistä.
 
 Supabasen URL ja anon/publishable-avain ovat selaimessa näkyviä julkisia tunnisteita, eivät salaisuuksia. Profiilien ja kuvien katselu sekä uuden nimimerkin tai juhlakuvan lisääminen on anonyymisti sallittua; vieraat eivät kirjaudu sisään eikä QR-kuvia sidota profiiliin. Nimimerkin tulee olla yksilöllinen. Älä koskaan laita `service_role`-avainta selaimeen. TV-näkymän QR-koodi luodaan QRServer-palvelussa ja siihen välitetään julkinen `lataa.html`-sivun osoite.
 

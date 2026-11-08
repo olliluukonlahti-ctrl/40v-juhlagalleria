@@ -9,9 +9,12 @@
   const qr = document.getElementById("upload-qr");
   const qrLink = document.getElementById("upload-qr-link");
   const qrFallback = document.getElementById("qr-fallback");
+  const slideDurationMs = 6000;
+  const photoRefreshMs = 2000;
   let photos = [];
   let current = 0;
   let currentId = "";
+  let hasDisplayedPhoto = false;
   let refreshInProgress = false;
 
   const uploadUrl = new URL("lataa.html", window.location.href).href;
@@ -33,6 +36,7 @@
     current = (index + photos.length) % photos.length;
     const photo = photos[current];
     currentId = photo.id;
+    hasDisplayedPhoto = true;
     image.src = window.GalleryBackend.getPhotoUrl(photo.photo_path);
     image.alt = photo.nickname
       ? "Nimimerkin " + photo.nickname + " juhlaprofiilikuva"
@@ -51,8 +55,14 @@
       const index = latest.findIndex(function (photo) { return photo.id === currentId; });
       photos = latest;
       if (latest.length) {
-        displayPhoto(index >= 0 ? index : 0);
-        status.textContent = "Skannaa QR-koodi ja lisää juhlakuvasi! Kuvat vaihtuvat 10 sekunnin välein.";
+        if (index >= 0) {
+          current = index;
+          count.textContent = (current + 1) + " / " + photos.length;
+          if (!hasDisplayedPhoto) displayPhoto(current);
+        } else {
+          displayPhoto(0);
+        }
+        status.textContent = "Skannaa QR-koodi ja lisää juhlakuvasi! Kuvat vaihtuvat 6 sekunnin välein, ja uudet kuvat lisätään jonoon automaattisesti.";
       } else {
         displayPhoto(0);
         status.textContent = "Galleria odottaa ensimmäisiä kuvia. Skannaa QR-koodi ja lähetä kuva!";
@@ -89,6 +99,6 @@
   loadSlideshowPhotos();
   window.setInterval(function () {
     if (photos.length) displayPhoto(current + 1);
-  }, 10000);
-  window.setInterval(loadSlideshowPhotos, 20000);
+  }, slideDurationMs);
+  window.setInterval(loadSlideshowPhotos, photoRefreshMs);
 }());

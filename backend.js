@@ -100,7 +100,9 @@
   }
 
   async function loadPhotos() {
-    const response = await request("/rest/v1/profile_photos?select=id,profile_id,nickname,photo_path,created_at&order=created_at.desc&limit=1000");
+    const response = await request("/rest/v1/profile_photos?select=id,profile_id,nickname,photo_path,created_at&order=created_at.desc,id.desc&limit=1000", {
+      cache: "no-store"
+    });
     return checkResponse(response).then(function (result) { return result.json(); });
   }
 
