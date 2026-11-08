@@ -57,14 +57,23 @@
               Galleria päivittyy automaattisesti uusilla kuvilla.
             </div>
           </div>
-          <aside class="qr-panel">
-            <h2>Lähetä kuva juhliin!</h2>
-            <p>Skannaa QR-koodi puhelimesi kameralla ja valitse kuva galleriastasi.</p>
-            <a id="upload-qr-link" class="qr-link" href="lataa.html">
-              <img id="upload-qr" alt="QR-koodi kuvien lähetykseen">
-              <span id="qr-fallback" hidden>Avaa kuvien lähetyssivu</span>
-            </a>
-            <span class="qr-hint">Jokainen kuva näkyy tällä näytöllä.</span>
+          <aside class="qr-panel" aria-label="QR-koodit">
+            <section class="qr-option">
+              <h2>Luo profiili</h2>
+              <p>Valitse nimimerkki ja profiilikuva.</p>
+              <a id="profile-qr-link" class="qr-link" href="index.html#oma-profiili">
+                <img id="profile-qr" alt="QR-koodi profiilin luomiseen">
+                <span id="profile-qr-fallback" hidden>Avaa profiilin luonti</span>
+              </a>
+            </section>
+            <section class="qr-option">
+              <h2>Lisää juhlakuvia</h2>
+              <p>Lähetä kuva puhelimestasi näytölle.</p>
+              <a id="upload-qr-link" class="qr-link" href="lataa.html">
+                <img id="upload-qr" alt="QR-koodi juhlakuvan lähetykseen">
+                <span id="qr-fallback" hidden>Avaa kuvien lähetyssivu</span>
+              </a>
+            </section>
           </aside>
         </section>
       </main>

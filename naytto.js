@@ -6,6 +6,9 @@
   const nickname = document.getElementById("slideshow-nickname");
   const count = document.getElementById("slide-count");
   const status = document.getElementById("slideshow-status");
+  const profileQr = document.getElementById("profile-qr");
+  const profileQrLink = document.getElementById("profile-qr-link");
+  const profileQrFallback = document.getElementById("profile-qr-fallback");
   const qr = document.getElementById("upload-qr");
   const qrLink = document.getElementById("upload-qr-link");
   const qrFallback = document.getElementById("qr-fallback");
@@ -17,13 +20,22 @@
   let hasDisplayedPhoto = false;
   let refreshInProgress = false;
 
-  const uploadUrl = new URL("lataa.html", window.location.href).href;
-  qr.src = "https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=4&data=" + encodeURIComponent(uploadUrl);
-  qrLink.href = uploadUrl;
-  qr.addEventListener("error", function () {
-    qr.hidden = true;
-    qrFallback.hidden = false;
-  });
+  function setQrCode(image, link, fallback, targetUrl) {
+    link.href = targetUrl;
+    image.src = "https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=4&data=" + encodeURIComponent(targetUrl);
+    image.addEventListener("error", function () {
+      image.hidden = true;
+      fallback.hidden = false;
+    });
+  }
+
+  setQrCode(
+    profileQr,
+    profileQrLink,
+    profileQrFallback,
+    new URL("index.html#oma-profiili", window.location.href).href
+  );
+  setQrCode(qr, qrLink, qrFallback, new URL("lataa.html", window.location.href).href);
 
   function displayPhoto(index) {
     if (!photos.length) {
