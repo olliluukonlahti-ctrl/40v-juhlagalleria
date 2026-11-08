@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="fi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#28649d">
+    <meta name="description" content="Juhlien kuvakaruselli. Skannaa QR-koodi ja lähetä juhlakuvasi mukaan!">
+    <title>Juhlien kuvakaruselli — 40v. Juhlagalleria</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="screen.css">
+    <script src="config.js"></script>
+    <script src="backend.js" defer></script>
+    <script src="naytto.js" defer></script>
+  </head>
+  <body class="screen-page">
+    <div class="page-shell screen-shell">
+      <header class="site-header">
+        <div class="masthead">
+          <a class="brand" href="index.html" aria-label="Takaisin juhlagalleriaan">
+            <span class="brand-mark" aria-hidden="true">☺</span>
+            <span>IRC<span class="brand-accent">-Juhlagalleria</span></span>
+          </a>
+          <div class="screen-header-note"><span class="online-dot"></span> JUHLAT KÄYNNISSÄ!</div>
+        </div>
+      </header>
+      <main>
+        <section class="screen-heading">
+          <div>
+            <p class="eyebrow">TERVEISET JUHLISTA</p>
+            <h1>Juhlaväen kuvagalleria</h1>
+          </div>
+          <div class="screen-controls">
+            <button id="fullscreen-button" class="screen-control-button" type="button">Koko ruutu</button>
+            <a class="screen-back-link" href="index.html">« Takaisin galleriaan</a>
+          </div>
+        </section>
+        <section class="slideshow-layout" aria-label="Juhlien kuvat">
+          <div class="slideshow-frame">
+            <div class="slideshow-photo-wrap" id="slideshow-photo-wrap">
+              <img id="slideshow-photo" alt="" hidden>
+              <div id="slideshow-empty" class="slideshow-empty">
+                <span class="slideshow-smiley" aria-hidden="true">:-)</span>
+                <strong>Vieläkö odotellaan ensimmäisiä kuvia?</strong>
+                <span>Skannaa QR-koodi ja lähetä juhlakuvasi tänne!</span>
+              </div>
+              <div class="slideshow-overlay">
+                <div class="slideshow-credit">
+                  <span class="slideshow-caption">JUHLISSA NYT</span>
+                  <h2 id="slideshow-nickname">Juhlakuvat</h2>
+                </div>
+                <div class="slide-count" id="slide-count">0 / 0</div>
+              </div>
+              <button id="previous-slide" class="slide-arrow slide-previous" type="button" aria-label="Edellinen kuva">‹</button>
+              <button id="next-slide" class="slide-arrow slide-next" type="button" aria-label="Seuraava kuva">›</button>
+            </div>
+            <div class="slideshow-status" id="slideshow-status" role="status" aria-live="polite">
+              Galleria päivittyy automaattisesti uusilla kuvilla.
+            </div>
+          </div>
+          <aside class="qr-panel">
+            <h2>Lähetä kuva juhliin!</h2>
+            <p>Skannaa QR-koodi puhelimesi kameralla ja valitse kuva galleriastasi.</p>
+            <a id="upload-qr-link" class="qr-link" href="lataa.html">
+              <img id="upload-qr" alt="QR-koodi kuvien lähetykseen">
+              <span id="qr-fallback" hidden>Avaa kuvien lähetyssivu</span>
+            </a>
+            <span class="qr-hint">Jokainen kuva näkyy tällä näytöllä.</span>
+          </aside>
+        </section>
+      </main>
+      <footer class="site-footer">
+        <span>IRC-Juhlagalleria &copy; 2026</span>
+        <span>Kuvat vaihtuvat näytöllä automaattisesti</span>
+      </footer>
+    </div>
+  </body>
+</html>

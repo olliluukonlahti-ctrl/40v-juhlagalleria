@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="fi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#28649d">
+    <meta name="description" content="Lisää juhlakuvasi yhteiseen kuvagalleriaan.">
+    <title>Lähetä juhlakuvia — 40v. Juhlagalleria</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="upload.css">
+    <script src="config.js"></script>
+    <script src="backend.js" defer></script>
+    <script src="upload.js" defer></script>
+  </head>
+  <body class="upload-page">
+    <div class="page-shell upload-shell">
+      <header class="site-header">
+        <div class="masthead">
+          <a class="brand" href="index.html" aria-label="Takaisin juhlagalleriaan">
+            <span class="brand-mark" aria-hidden="true">☺</span>
+            <span>IRC<span class="brand-accent">-Juhlagalleria</span></span>
+          </a>
+          <div class="header-note">40-VUOTISJUHLAT &bull; TERVETULOA!</div>
+        </div>
+        <nav class="main-nav" aria-label="Päänavigaatio">
+          <a href="index.html">Etusivu</a>
+          <a class="active" href="lataa.html">Lisää kuva</a>
+          <a href="naytto.html">Juhlanäyttö</a>
+        </nav>
+      </header>
+      <main class="upload-main">
+        <section class="box-title"><h1>Lähetä juhlakuvia!</h1></section>
+        <p class="upload-intro">Kuvasi lisätään juhlan kuvakaruselliin kaikkien nähtäväksi. Kirjautumista tai nimimerkkiä ei tarvita.</p>
+        <form id="party-photo-form" class="album-upload-form upload-form">
+          <label class="field-label" for="party-photo-input">Valitse kuvat puhelimesta tai ota kuva</label>
+          <input id="party-photo-input" type="file" accept="image/*" multiple required>
+          <div id="selected-photos" class="selected-photos" aria-live="polite">
+            <span>Valitse yksi tai useampi juhlatunnelma!</span>
+          </div>
+          <p class="upload-size-note">Kuvat pakataan automaattisesti ennen latausta. Enintään 20 Mt / kuva.</p>
+          <button class="primary-button submit-button" id="party-photo-submit" type="submit">Lataa kuvat juhliin »</button>
+          <p class="form-message" id="party-photo-message" role="status" aria-live="polite"></p>
+        </form>
+        <a class="upload-back-link" href="index.html">« Takaisin galleriaan</a>
+      </main>
+      <footer class="site-footer">
+        <span>IRC-Juhlagalleria &copy; 2026</span>
+        <span>Kiitos kun jaat muistosi!</span>
+      </footer>
+    </div>
+  </body>
+</html>

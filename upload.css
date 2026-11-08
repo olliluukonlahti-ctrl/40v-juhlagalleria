@@ -1,0 +1,29 @@
+.upload-shell { width: min(720px, calc(100% - 24px)); }
+.upload-main { width: min(560px, calc(100% - 28px)); margin: 20px auto 28px; }
+.upload-main .box-title { min-height: 38px; }
+.upload-main .box-title h1 { margin: 0; color: #255a7e; font: bold 16px Tahoma, Arial, sans-serif; }
+.upload-intro { margin: 10px 0 12px; color: #555; font-size: 12px; }
+.upload-form { padding: 14px; }
+.upload-form .field-label { margin-top: 0; font-size: 12px; }
+.upload-form input[type="file"] { min-height: 38px; }
+.upload-form .submit-button { margin-top: 12px; }
+.upload-size-note { margin: 7px 0; color: #777; font-size: 10px; }
+.selected-photos {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+  margin-top: 9px;
+}
+.selected-photos:empty { display: none; }
+.selected-photos > span { grid-column: 1 / -1; color: #777; font-size: 10px; }
+.selected-photos figure { min-width: 0; margin: 0; border: 1px solid #bdcbd4; background: #fff; }
+.selected-photos img { width: 100%; aspect-ratio: 1; display: block; object-fit: cover; background: #e6edf2; }
+.selected-photos figcaption { overflow: hidden; padding: 4px; color: #666; font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
+.selected-photos .photo-count-extra { align-self: center; padding: 5px; }
+.photo-count-extra { grid-column: 1 / -1; }
+.upload-back-link { display: inline-block; margin-top: 12px; font-size: 11px; }
+@media (max-width: 520px) {
+  .upload-shell { max-width: 100%; width: 100%; margin: 0 auto; border-right: 0; border-left: 0; }
+  .upload-main { width: calc(100% - 20px); margin-top: 14px; }
+  .selected-photos { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}

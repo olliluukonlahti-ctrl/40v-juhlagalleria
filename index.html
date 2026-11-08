@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="fi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#28649d">
+    <meta name="description" content="Tervetuloa juhlimaan — tee oma profiili ja katso ketkä ovat jo paikalla!">
+    <title>40v. Juhlagalleria — kuvagalleria</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%BF%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="styles.css">
+    <script src="config.js"></script>
+    <script src="backend.js" defer></script>
+    <script src="app.js" defer></script>
+    <script src="upload.js" defer></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <div class="masthead">
+          <a class="brand" href="#" aria-label="Juhlagalleria, etusivu">
+            <span class="brand-mark" aria-hidden="true">☺</span>
+            <span>IRC<span class="brand-accent">-Juhlagalleria</span></span>
+          </a>
+          <div class="header-note"><span class="online-dot"></span> 40-VUOTISJUHLAT &bull; TERVETULOA!</div>
+        </div>
+        <nav class="main-nav" aria-label="Päänavigaatio">
+          <a class="active" href="#galleria">Etusivu</a>
+          <a href="#galleria">Kuvagalleria</a>
+          <a href="lataa.html">Lisää kuva puhelimesta</a>
+          <a href="naytto.html">Näyttö</a>
+          <span class="nav-spacer"></span>
+          <span class="nav-greeting">Terve, juhlija!</span>
+        </nav>
+      </header>
+
+      <main>
+        <section class="welcome-box" aria-labelledby="page-title">
+          <div class="welcome-stamp" aria-hidden="true">40<br><small>VUOTTA</small></div>
+          <div>
+            <p class="eyebrow">MOI JA TERVETULOA JUHLIMAAN!</p>
+            <h1 id="page-title">Tänä iltana tavataan galleriassa!</h1>
+            <p class="hero-lead">Valitse itsellesi nimimerkki juhlan aluksi ja lisää profiilikuva. Skannaa juhlanäytön QR-koodi lisätäksesi kuvia yhteiseen kuvakaruselliin!</p>
+          </div>
+        </section>
+
+        <div class="layout-columns">
+          <aside class="sidebar">
+            <section class="profile-section" id="oma-profiili" aria-labelledby="form-title">
+              <div class="box-title"><h2 id="form-title">Luo profiili</h2></div>
+              <p class="section-intro">Lisää itsesi juhlakuvien joukkoon!</p>
+              <form id="profile-form" class="profile-form">
+                <label class="photo-picker" for="photo-input" id="photo-picker">
+                  <input id="photo-input" name="photo" type="file" accept="image/*" required>
+                  <span class="photo-preview" id="photo-preview" aria-hidden="true">
+                    <span class="photo-placeholder-icon">+</span>
+                    <span class="photo-placeholder-text">Valitse kuva<br><small>tai ota uusi</small></span>
+                  </span>
+                  <span class="photo-picker-caption">Selaa kuvia puhelimesta...</span>
+                </label>
+
+                <div class="form-fields">
+                  <label class="field-label" for="nickname">Nimimerkki <span>*</span></label>
+                  <input id="nickname" name="nickname" type="text" maxlength="24" autocomplete="nickname" placeholder="esim. diskokuningas" required>
+                  <button class="primary-button submit-button" id="submit-button" type="submit">Luo profiili »</button>
+                  <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+                </div>
+              </form>
+            </section>
+
+            <section class="photo-upload-section" id="lisaa-kuva" aria-labelledby="upload-title">
+              <div class="box-title"><h2 id="upload-title">Lisää kuva</h2></div>
+              <form id="party-photo-form" class="album-upload-form">
+                <label class="field-label" for="party-photo-input">Valitse kuvat puhelimesta</label>
+                <input id="party-photo-input" type="file" accept="image/*" multiple required>
+                <p class="album-upload-hint">Kuvat lisätään yhteiseen juhlanäyttöön ilman nimimerkkiä. Voit valita kerralla useamman kuvan.</p>
+                <div id="selected-photos" class="selected-photos" aria-live="polite"></div>
+                <button class="primary-button submit-button" id="party-photo-submit" type="submit">Lataa kuvat »</button>
+                <p class="form-message" id="party-photo-message" role="status" aria-live="polite"></p>
+              </form>
+            </section>
+
+            <aside class="sidebar-note">
+              <h3>Juhlavinkki</h3>
+              <p>Luo nimimerkki profiilikuvallesi. Juhlakuvat lisätään nimettömästi kaikkien yhteiseen kuvakaruselliin.</p>
+              <a href="#galleria">Katso juhlakuvat »</a>
+            </aside>
+          </aside>
+
+          <section class="gallery-section" id="galleria" aria-labelledby="gallery-title">
+            <div class="box-title gallery-title">
+              <h2 id="gallery-title">Juhlijat galleriassa <span class="count-pill" id="profile-count">…</span></h2>
+            </div>
+            <div class="gallery-toolbar">
+              <span>Juhlaväkeä paikalla:</span> <strong id="gallery-count-copy">…</strong>
+              <span class="gallery-intro">Keitä kaikkia tänään tavataan?</span>
+            </div>
+            <div class="gallery-grid" id="gallery-grid" aria-live="polite">
+              <div class="empty-state" id="empty-state">
+                <span class="empty-icon" aria-hidden="true">:-)</span>
+                <strong>Galleria odottaa ensimmäistä juhlijaa!</strong>
+                <span>Lisää oma profiilisi ja avaa illan kuvagalleria.</span>
+                <a href="#oma-profiili">Tee oma profiili »</a>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        <span>IRC-Juhlagalleria &copy; 2026</span>
+        <span>40-vuotisjuhlat &bull; Kuvat ja muistot jäävät elämään!</span>
+      </footer>
+    </div>
+    <dialog class="album-dialog" id="album-dialog" aria-labelledby="album-title">
+      <form method="dialog" class="dialog-close-form"><button class="icon-button" aria-label="Sulje">×</button></form>
+      <p class="eyebrow">JUHLAKUVAT</p>
+      <h2 id="album-title">Nimimerkin kuvat</h2>
+      <p id="album-description" class="album-description"></p>
+      <div id="album-photos" class="album-photos" aria-live="polite"></div>
+    </dialog>
+  </body>
+</html>
