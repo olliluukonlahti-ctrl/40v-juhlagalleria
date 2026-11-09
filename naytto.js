@@ -2,9 +2,7 @@
   "use strict";
 
   const image = document.getElementById("slideshow-photo");
-  const profileGrid = document.getElementById("profile-grid");
   const empty = document.getElementById("slideshow-empty");
-  const photoWrap = document.getElementById("slideshow-photo-wrap");
   const nickname = document.getElementById("slideshow-nickname");
   const count = document.getElementById("slide-count");
   const status = document.getElementById("slideshow-status");
@@ -12,15 +10,11 @@
   const profileQrLink = document.getElementById("profile-qr-link");
   const profileQrFallback = document.getElementById("profile-qr-fallback");
   const slideDurationMs = 6000;
-  const overviewDurationMs = 8000;
   const photoRefreshMs = 2000;
   let photos = [];
   let current = 0;
   let currentId = "";
-  let gridSignature = "";
-  let presentationMode = "overview";
-  let presentationStarted = false;
-  let presentationTimer = 0;
+  let hasDisplayedPhoto = false;
   let refreshInProgress = false;
 
   function setQrCode(image, link, fallback, targetUrl) {
@@ -41,11 +35,6 @@
 
   function displayPhoto(index) {
     if (!photos.length) {
-      window.clearTimeout(presentationTimer);
-      presentationTimer = 0;
-      presentationMode = "empty";
-      photoWrap.classList.remove("is-overview");
-      profileGrid.hidden = true;
       image.hidden = true;
       empty.hidden = false;
       nickname.textContent = "Juhlakuvat";
@@ -55,64 +44,15 @@
     current = (index + photos.length) % photos.length;
     const photo = photos[current];
     currentId = photo.id;
-    presentationMode = "focus";
-    photoWrap.classList.remove("is-overview");
+    hasDisplayedPhoto = true;
     image.src = window.GalleryBackend.getPhotoUrl(photo.photo_path);
     image.alt = photo.nickname
       ? "Nimimerkin " + photo.nickname + " juhlaprofiilikuva"
       : "Juhlissa otettu yhteinen kuva";
     image.hidden = false;
     empty.hidden = true;
-    profileGrid.hidden = true;
-    image.classList.remove("photo-focus-in");
-    void image.offsetWidth;
-    image.classList.add("photo-focus-in");
     nickname.textContent = photo.nickname || "Juhlatunnelmia";
     count.textContent = (current + 1) + " / " + photos.length;
-    window.clearTimeout(presentationTimer);
-    presentationTimer = window.setTimeout(function () {
-      displayPhoto(current + 1);
-    }, slideDurationMs);
-  }
-
-  function displayOverview() {
-    if (!photos.length) {
-      displayPhoto(0);
-      return;
-    }
-    presentationMode = "overview";
-    photoWrap.classList.add("is-overview");
-    profileGrid.hidden = false;
-    image.hidden = true;
-    empty.hidden = true;
-    nickname.textContent = "Juhlaprofiilit";
-    count.textContent = photos.length + (photos.length === 1 ? " profiili" : " profiilia");
-    window.clearTimeout(presentationTimer);
-    presentationTimer = window.setTimeout(function () {
-      displayPhoto(current);
-    }, overviewDurationMs);
-  }
-
-  function renderProfileGrid() {
-    const signature = photos.map(function (photo) {
-      return [photo.id, photo.nickname, photo.photo_path].join(":");
-    }).join("|");
-    if (signature === gridSignature) return;
-    gridSignature = signature;
-    profileGrid.replaceChildren();
-    photos.forEach(function (photo, index) {
-      const tile = document.createElement("div");
-      tile.className = "profile-tile";
-      tile.style.setProperty("--tile-index", index);
-      const tileImage = document.createElement("img");
-      tileImage.src = window.GalleryBackend.getPhotoUrl(photo.photo_path);
-      tileImage.alt = "";
-      tileImage.loading = "eager";
-      const tileName = document.createElement("span");
-      tileName.textContent = photo.nickname || "Juhlatunnelmia";
-      tile.append(tileImage, tileName);
-      profileGrid.append(tile);
-    });
   }
 
   async function loadSlideshowPhotos() {
@@ -123,27 +63,15 @@
       const index = latest.findIndex(function (photo) { return photo.id === currentId; });
       photos = latest;
       if (latest.length) {
-        renderProfileGrid();
         if (index >= 0) {
           current = index;
-          if (presentationMode === "focus") {
-            count.textContent = (current + 1) + " / " + photos.length;
-          } else if (presentationMode === "overview") {
-            count.textContent = photos.length + (photos.length === 1 ? " profiili" : " profiilia");
-          }
-        } else if (currentId) {
-          current = 0;
-          if (presentationMode === "focus") displayPhoto(0);
-          else if (presentationMode === "overview" && presentationStarted) displayOverview();
+          count.textContent = (current + 1) + " / " + photos.length;
+          if (!hasDisplayedPhoto) displayPhoto(current);
+        } else {
+          displayPhoto(0);
         }
-        if (!presentationStarted || presentationMode === "empty") {
-          presentationStarted = true;
-          current = 0;
-          displayOverview();
-        }
-        status.textContent = "Kaikki profiilit näkyvät ensin yhdessä. Sen jälkeen kuvat vaihtuvat 6 sekunnin välein, ja uudet profiilikuvat tulevat mukaan automaattisesti.";
+        status.textContent = "Skannaa QR-koodi ja luo oma profiilisi! Kuvat vaihtuvat 6 sekunnin välein, ja uudet profiilikuvat lisätään jonoon automaattisesti.";
       } else {
-        gridSignature = "";
         displayPhoto(0);
         status.textContent = "Galleria odottaa ensimmäisiä profiileja. Luo profiili QR-koodilla tai ota kuva ovikameralla.";
       }
@@ -176,12 +104,9 @@
     if (event.key === "ArrowRight" && photos.length) displayPhoto(current + 1);
   });
 
-  document.getElementById("slideshow-photo-wrap").addEventListener("click", function (event) {
-    if (presentationMode === "overview" && !event.target.closest(".slide-arrow") && photos.length) {
-      displayPhoto(current);
-    }
-  });
-
   loadSlideshowPhotos();
+  window.setInterval(function () {
+    if (photos.length) displayPhoto(current + 1);
+  }, slideDurationMs);
   window.setInterval(loadSlideshowPhotos, photoRefreshMs);
 }());
