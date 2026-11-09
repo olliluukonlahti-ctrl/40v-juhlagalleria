@@ -7,7 +7,7 @@
     <meta name="description" content="Ota juhlavieraasta kuva ja luo hänelle nimimerkkiprofiili juhlagalleriaan.">
     <title>Ovikamera — 40v. Juhlagalleria</title>
     <link rel="stylesheet" href="styles.css?v=20261109-1929">
-    <link rel="stylesheet" href="door-camera.css?v=20261109-2151">
+    <link rel="stylesheet" href="door-camera.css?v=20261109-2205">
     <script src="config.js"></script>
     <script src="backend.js?v=20261109-2000" defer></script>
     <script src="door-camera.js?v=20261109-2150" defer></script>
@@ -20,18 +20,11 @@
             <span class="brand-mark" aria-hidden="true">☺</span>
             <span>IRC<span class="brand-accent">-Juhlagalleria</span></span>
           </a>
-          <div class="header-note">OVIKAMERA • JÄRJESTÄJÄN KÄYTTÖÖN</div>
         </div>
-        <nav class="main-nav" aria-label="Päänavigaatio">
-          <a href="index.html">Etusivu</a>
-          <a href="naytto.html">Juhlanäyttö</a>
-        </nav>
       </header>
       <main class="door-main">
         <section class="door-heading">
-          <p class="eyebrow">TERVETULOA JUHLIIN!</p>
           <h1>Ovikamera</h1>
-          <p>Kirjoita vieraan nimimerkki, ota kuva ja tarkista se ennen julkaisua.</p>
         </section>
         <form id="door-form" class="door-form">
           <div class="door-camera-frame">
@@ -47,11 +40,10 @@
 
           <label class="field-label" for="door-nickname">Vieraan nimimerkki</label>
           <input id="door-nickname" name="nickname" type="text" maxlength="24" autocomplete="off" placeholder="esim. diskokuningas" required>
-          <p class="door-note">Jokaiselle kuvalle luodaan uusi profiili. Nimimerkin tulee olla vielä käyttämätön.</p>
 
           <label class="door-consent-check">
             <input id="door-consent" type="checkbox" required>
-            <span>Vieras antaa luvan kuvan julkaisemiseen julkisessa juhlagalleriassa.</span>
+            <span>Vieras antaa luvan kuvan julkaisuun.</span>
           </label>
           <div class="door-actions">
             <button id="start-camera" class="door-button" type="button">Käynnistä kamera</button>
@@ -61,13 +53,7 @@
           </div>
           <p id="door-message" class="door-message" role="status" aria-live="polite"></p>
         </form>
-        <p class="door-consent">Varmista ennen julkaisua, että vieras suostuu kuvan näyttämiseen kaikille juhlagallerian kävijöille.</p>
-        <a class="door-back" href="index.html">« Takaisin juhlagalleriaan</a>
       </main>
-      <footer class="site-footer">
-        <span>IRC-Juhlagalleria &copy; 2026</span>
-        <span>Kuva julkaistaan vasta vahvistuksen jälkeen</span>
-      </footer>
     </div>
   </body>
 </html>
