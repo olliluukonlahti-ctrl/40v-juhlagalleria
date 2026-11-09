@@ -9,9 +9,6 @@
   const profileQr = document.getElementById("profile-qr");
   const profileQrLink = document.getElementById("profile-qr-link");
   const profileQrFallback = document.getElementById("profile-qr-fallback");
-  const qr = document.getElementById("upload-qr");
-  const qrLink = document.getElementById("upload-qr-link");
-  const qrFallback = document.getElementById("qr-fallback");
   const slideDurationMs = 6000;
   const photoRefreshMs = 2000;
   let photos = [];
@@ -35,7 +32,6 @@
     profileQrFallback,
     new URL("index.html#oma-profiili", window.location.href).href
   );
-  setQrCode(qr, qrLink, qrFallback, new URL("lataa.html", window.location.href).href);
 
   function displayPhoto(index) {
     if (!photos.length) {
@@ -63,7 +59,7 @@
     if (refreshInProgress) return;
     refreshInProgress = true;
     try {
-      const latest = await window.GalleryBackend.loadPhotos();
+      const latest = await window.GalleryBackend.loadProfilePhotos();
       const index = latest.findIndex(function (photo) { return photo.id === currentId; });
       photos = latest;
       if (latest.length) {
@@ -74,10 +70,10 @@
         } else {
           displayPhoto(0);
         }
-        status.textContent = "Skannaa QR-koodi ja lisää juhlakuvasi! Kuvat vaihtuvat 6 sekunnin välein, ja uudet kuvat lisätään jonoon automaattisesti.";
+        status.textContent = "Skannaa QR-koodi ja luo oma profiilisi! Kuvat vaihtuvat 6 sekunnin välein, ja uudet profiilikuvat lisätään jonoon automaattisesti.";
       } else {
         displayPhoto(0);
-        status.textContent = "Galleria odottaa ensimmäisiä kuvia. Skannaa QR-koodi ja lähetä kuva!";
+        status.textContent = "Galleria odottaa ensimmäisiä profiileja. Luo profiili QR-koodilla tai ota kuva ovikameralla.";
       }
     } catch (error) {
       status.textContent = "Kuvien lataus epäonnistui: " + error.message;

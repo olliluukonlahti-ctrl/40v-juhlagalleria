@@ -85,15 +85,6 @@
     return path;
   }
 
-  async function addPartyPhoto(file) {
-    const photoPath = await uploadPhoto(file);
-    await checkResponse(await request("/rest/v1/rpc/add_guest_photo", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ p_photo_path: photoPath })
-    }));
-  }
-
   async function loadProfiles() {
     const response = await request("/rest/v1/profiles?select=id,nickname,photo_path,created_at&order=created_at.desc&limit=100");
     return checkResponse(response).then(function (result) { return result.json(); });
@@ -101,6 +92,13 @@
 
   async function loadPhotos() {
     const response = await request("/rest/v1/profile_photos?select=id,profile_id,nickname,photo_path,created_at&order=created_at.desc,id.desc&limit=1000", {
+      cache: "no-store"
+    });
+    return checkResponse(response).then(function (result) { return result.json(); });
+  }
+
+  async function loadProfilePhotos() {
+    const response = await request("/rest/v1/profile_photos?select=id,profile_id,nickname,photo_path,created_at&profile_id=not.is.null&order=created_at.desc,id.desc&limit=1000", {
       cache: "no-store"
     });
     return checkResponse(response).then(function (result) { return result.json(); });
@@ -149,13 +147,13 @@
   }
 
   window.GalleryBackend = {
-    addPartyPhoto: addPartyPhoto,
     createProfile: createProfile,
     deletePartyPhoto: deletePartyPhoto,
     deleteProfile: deleteProfile,
     verifyAdminPassword: verifyAdminPassword,
     getPhotoUrl: getPhotoUrl,
     loadPhotos: loadPhotos,
+    loadProfilePhotos: loadProfilePhotos,
     loadProfiles: loadProfiles,
     request: request,
     uploadPhoto: uploadPhoto

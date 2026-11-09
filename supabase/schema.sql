@@ -11,6 +11,7 @@ drop function if exists public.create_guest_profile(text, text, text, text);
 drop function if exists public.update_guest_profile(uuid, text, text, text, text);
 drop function if exists public.add_guest_photo(uuid, text);
 drop function if exists public.add_guest_photo(uuid, text, text);
+drop function if exists public.add_guest_photo(text);
 alter table public.profiles drop column if exists description;
 alter table public.profiles drop column if exists edit_token_hash;
 
@@ -82,31 +83,8 @@ begin
 end;
 $$;
 
-create or replace function public.add_guest_photo(
-  p_photo_path text
-) returns uuid
-language plpgsql
-security definer
-set search_path = pg_catalog, public
-as $$
-declare
-  new_photo_id uuid;
-begin
-  if p_photo_path is null or p_photo_path !~ '^[0-9a-f-]{36}\.jpg$' then
-    raise exception 'Kuvan polku ei kelpaa.';
-  end if;
-
-  insert into public.profile_photos (profile_id, nickname, photo_path)
-  values (null, '', p_photo_path)
-  returning id into new_photo_id;
-  return new_photo_id;
-end;
-$$;
-
 revoke all on function public.create_guest_profile(text, text) from public;
-revoke all on function public.add_guest_photo(text) from public;
 grant execute on function public.create_guest_profile(text, text) to anon, authenticated;
-grant execute on function public.add_guest_photo(text) to anon, authenticated;
 
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
 values ('party-photos', 'party-photos', true, 5242880, array['image/jpeg', 'image/png', 'image/webp'])

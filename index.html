@@ -9,24 +9,23 @@
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%BF%3C/text%3E%3C/svg%3E">
     <link rel="stylesheet" href="styles.css?v=20261109-1929">
     <script src="config.js"></script>
-    <script src="backend.js" defer></script>
+    <script src="backend.js?v=20261109-2000" defer></script>
     <script src="app.js" defer></script>
-    <script src="upload.js" defer></script>
   </head>
-  <body>
+  <body id="top">
     <div class="page-shell">
       <header class="site-header">
         <div class="masthead">
-          <a class="brand" href="#" aria-label="Juhlagalleria, etusivu">
+          <a class="brand" href="#top" aria-label="Juhlagalleria, etusivu">
             <span class="brand-mark" aria-hidden="true">☺</span>
             <span>IRC<span class="brand-accent">-Juhlagalleria</span></span>
           </a>
           <div class="header-note"><span class="online-dot"></span> 40-VUOTISJUHLAT &bull; TERVETULOA!</div>
         </div>
         <nav class="main-nav" aria-label="Päänavigaatio">
-          <a class="active" href="#galleria">Etusivu</a>
-          <a href="lataa.html">Lisää kuva puhelimesta</a>
-          <a href="naytto.html">Näyttö</a>
+          <a class="active" href="#top">Etusivu</a>
+          <a href="#galleria">Kuvagalleria</a>
+          <a href="naytto.html">Juhlanäyttö</a>
           <a href="door-camera.html">Ovikamera</a>
           <span class="nav-spacer"></span>
           <span class="nav-greeting">Terve, juhlija!</span>
@@ -39,7 +38,7 @@
           <div>
             <p class="eyebrow">MOI JA TERVETULOA JUHLIMAAN!</p>
             <h1 id="page-title">Tänä iltana tavataan galleriassa!</h1>
-            <p class="hero-lead">Valitse itsellesi nimimerkki juhlan aluksi ja lisää profiilikuva. Skannaa juhlanäytön QR-koodi lisätäksesi kuvia yhteiseen kuvakaruselliin!</p>
+            <p class="hero-lead">Luo itsellesi nimimerkki ja profiilikuva — tai pyydä järjestäjää ottamaan ovella kuva Ovikameralla.</p>
           </div>
         </section>
 
@@ -67,21 +66,14 @@
               </form>
             </section>
 
-            <section class="photo-upload-section" id="lisaa-kuva" aria-labelledby="upload-title">
-              <div class="box-title"><h2 id="upload-title">Lisää kuva</h2></div>
-              <form id="party-photo-form" class="album-upload-form">
-                <label class="field-label" for="party-photo-input">Valitse kuvat puhelimesta</label>
-                <input id="party-photo-input" type="file" accept="image/*" multiple required>
-                <p class="album-upload-hint">Kuvat lisätään yhteiseen juhlanäyttöön ilman nimimerkkiä. Voit valita kerralla useamman kuvan.</p>
-                <div id="selected-photos" class="selected-photos" aria-live="polite"></div>
-                <button class="primary-button submit-button" id="party-photo-submit" type="submit">Lataa kuvat »</button>
-                <p class="form-message" id="party-photo-message" role="status" aria-live="polite"></p>
-              </form>
-            </section>
-
             <aside class="sidebar-note">
               <h3>Juhlavinkki</h3>
-              <p>Luo nimimerkki profiilikuvallesi. Juhlakuvat lisätään nimettömästi kaikkien yhteiseen kuvakaruselliin.</p>
+              <p>Luo oma profiili tai pyydä järjestäjää ottamaan ovella kuva Ovikameralla.</p>
+              <a href="door-camera.html">Avaa ovikamera »</a>
+            </aside>
+            <aside class="sidebar-note">
+              <h3>Lisää oma profiili</h3>
+              <p>Valitse kuva puhelimesta ja keksi itsellesi nimimerkki.</p>
               <a href="#galleria">Katso juhlakuvat »</a>
             </aside>
           </aside>

@@ -4,12 +4,11 @@ Julkaistu sivu: https://olliluukonlahti-ctrl.github.io/40v-juhlagalleria/
 
 Sivut:
 - Etusivu ja profiilin luonti: https://olliluukonlahti-ctrl.github.io/40v-juhlagalleria/
-- Kuvien lataus puhelimesta: https://olliluukonlahti-ctrl.github.io/40v-juhlagalleria/lataa.html
 - Juhlanäyttö ja QR-koodit: https://olliluukonlahti-ctrl.github.io/40v-juhlagalleria/naytto.html
 - Järjestäjän kuvahallinta: https://olliluukonlahti-ctrl.github.io/40v-juhlagalleria/hallinta.html
 - Ovikamera (kokeilu): https://olliluukonlahti-ctrl.github.io/40v-juhlagalleria/door-camera.html
 
-Suomenkielinen, mobiiliystävällinen juhlagalleria 40-vuotisjuhliin. Saapuessaan vieras luo nimimerkin ja lisää profiilikuvan ilman salasanaa tai kirjautumista. Erillisessä TV-näkymässä pyörii nimimerkillä varustettu profiilikuvagalleria ja kaikkien juhlakuvien diaesitys. Vieraat skannaavat näytön QR-koodin ja lisäävät puhelimestaan yhden tai useamman kuvan yhteiseen diaesitykseen; QR-kuvat eivät linkity nimimerkkiin. Profiilit ja kuvat jaetaan laitteiden välillä Supabasen kautta.
+Suomenkielinen, mobiiliystävällinen juhlagalleria 40-vuotisjuhliin. Vieras luo nimimerkin ja lisää profiilikuvan ilman salasanaa tai kirjautumista. Vaihtoehtoisesti järjestäjä ottaa kuvan ovikamerasivulla ja julkaisee uuden profiilin vieraan nimimerkillä. Erillisessä TV-näkymässä pyörii profiilikuvagalleria. Profiilit ja kuvat jaetaan laitteiden välillä Supabasen kautta.
 
 Ovikamera on erillinen kokeilusivu järjestäjälle: kirjoita uusi nimimerkki, käynnistä kamera, ota kuva ja julkaise se erillisellä painikkeella. Kamera vaatii selaimen käyttöluvan ja HTTPS-yhteyden. Sivua ei ole lisätty vieraiden navigaatioon, mutta se ei ole salasanalla suojattu; jaa sen osoite vain järjestäjille. Julkaistu kuva ja nimimerkki tulevat julkiseen galleriaan.
 
@@ -20,7 +19,7 @@ Ulkoasu hakee tarkoituksella 2000-luvun alkupuolen IRC-gallerioista: kiinteä, k
 Tarvitset Supabase-projektin. Sovellus on staattinen HTML/CSS/JS, joten sen voi tarjota mistä tahansa staattisesta web-hostauksesta. Älä julkaise sitä ennen kuin Supabasen asetukset ja tietokantakaava ovat kunnossa.
 
 1. Luo Supabase-projekti ja avaa projektin **SQL Editor**.
-2. Suorita [`supabase/schema.sql`](supabase/schema.sql) kokonaisuudessaan. Se luo profiili- ja kuvataulut, profiilin luonti- ja kuvien lisäysfunktiot sekä julkisen `party-photos`-kuvasäilön. Jos projektissa on jo aiempi galleria-asennus, suorita päivitetty tiedosto uudestaan: se tallentaa aiemmat profiilikuvat uuden juhlanäytön käyttöön ja siivoaa vanhat profiilien kuvaus- ja muokkausavaintiedot.
+2. Suorita [`supabase/schema.sql`](supabase/schema.sql) kokonaisuudessaan. Se luo profiili- ja kuvataulut, profiilin luontifunktion sekä julkisen `party-photos`-kuvasäilön. Jos projektiin on jo asennettu aiempi galleria, suorita päivitetty tiedosto uudestaan: se siivoaa vanhat profiilien kuvaus- ja muokkausavaintiedot ja poistaa käytöstä nimettömien juhlakuvien lisäysfunktion.
 3. Kopioi `config.js`-tiedostoon Supabasen projektin **Project URL** ja **anon / publishable key** (ei `service_role`-avainta):
 
    ```js
@@ -30,10 +29,10 @@ Tarvitset Supabase-projektin. Sovellus on staattinen HTML/CSS/JS, joten sen voi 
    };
    ```
 
-4. Tarjoa hakemiston sisältö HTTPS-sivustona. Avaa juhlan tietokoneella `naytto.html` ja näytä se kokoruututilassa. Vieraat voivat skannata näytön QR-koodin, joka vie `lataa.html`-sivulle.
-5. Testaa: luo `index.html`-sivulla nimimerkki ja profiilikuva. Avaa `naytto.html` ja lähetä puhelimella QR-koodin kautta yksi tai useampia juhlakuvia. Profiilikuvat näkyvät diaesityksessä nimimerkin kanssa; QR-kuvien kohdalla näytetään yleinen kuvateksti ilman nimimerkkiä. Kuvat vaihtuvat näytöllä 6 sekunnin välein, ja juhlanäyttö tarkistaa uudet kuvat automaattisesti 2 sekunnin välein ilman manuaalista päivittämistä.
+4. Tarjoa hakemiston sisältö HTTPS-sivustona. Avaa juhlan tietokoneella `naytto.html` ja näytä se kokoruututilassa. Näytön QR-koodi vie profiilin luontiin.
+5. Testaa: luo `index.html`-sivulla nimimerkki ja profiilikuva tai julkaise kuva `door-camera.html`-ovikameralla. Profiilikuvat näkyvät diaesityksessä nimimerkin kanssa. Kuvat vaihtuvat näytöllä 6 sekunnin välein, ja juhlanäyttö tarkistaa uudet profiilikuvat automaattisesti 2 sekunnin välein ilman manuaalista päivittämistä.
 
-Supabasen URL ja anon/publishable-avain ovat selaimessa näkyviä julkisia tunnisteita, eivät salaisuuksia. Profiilien ja kuvien katselu sekä uuden nimimerkin tai juhlakuvan lisääminen on anonyymisti sallittua; vieraat eivät kirjaudu sisään eikä QR-kuvia sidota profiiliin. Nimimerkin tulee olla yksilöllinen. Älä koskaan laita `service_role`-avainta selaimeen. TV-näkymän QR-koodi luodaan QRServer-palvelussa ja siihen välitetään julkinen `lataa.html`-sivun osoite.
+Supabasen URL ja anon/publishable-avain ovat selaimessa näkyviä julkisia tunnisteita, eivät salaisuuksia. Profiilien ja kuvien katselu sekä uuden profiilin luominen on anonyymisti sallittua; vieraat eivät kirjaudu sisään. Nimimerkin tulee olla yksilöllinen. Älä koskaan laita `service_role`-avainta selaimeen. TV-näkymän QR-koodi luodaan QRServer-palvelussa ja siihen välitetään profiilin luonnin osoite.
 
 Tuetut, selaimen avaamat puhelinkuvaformaatit tarkistetaan ennen latausta. Kuvat rajataan tarvittaessa enintään 1600 pikseliin ja pakataan JPEG-muotoon; Supabase-säilö valvoo JPEG-tyypin ja 5 Mt:n tallennusrajan. Kuvat näkyvät kaikille juhlanäytössä ja selaimen kuvagalleriassa. `config.js` kuuluu staattiseen julkiseen sivustoon, joten siihen saa laittaa vain anon/publishable-avaimen, ei `service_role`-avainta.
 

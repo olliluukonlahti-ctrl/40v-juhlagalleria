@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#28649d">
-    <meta name="description" content="Juhlien kuvakaruselli. Skannaa QR-koodi ja lähetä juhlakuvasi mukaan!">
+    <meta name="description" content="Juhlien kuvakaruselli. Skannaa QR-koodi ja luo oma juhlaprofiilisi!">
     <title>Juhlien kuvakaruselli — 40v. Juhlagalleria</title>
     <link rel="stylesheet" href="styles.css?v=20261109-1929">
     <link rel="stylesheet" href="screen.css?v=20261109-1929">
     <script src="config.js"></script>
-    <script src="backend.js" defer></script>
-    <script src="naytto.js" defer></script>
+    <script src="backend.js?v=20261109-2000" defer></script>
+    <script src="naytto.js?v=20261109-2000" defer></script>
   </head>
   <body class="screen-page">
     <div class="page-shell screen-shell">
@@ -40,8 +40,8 @@
               <img id="slideshow-photo" alt="" hidden>
               <div id="slideshow-empty" class="slideshow-empty">
                 <span class="slideshow-smiley" aria-hidden="true">:-)</span>
-                <strong>Vieläkö odotellaan ensimmäisiä kuvia?</strong>
-                <span>Skannaa QR-koodi ja lähetä juhlakuvasi tänne!</span>
+                <strong>Vieläkö odotellaan ensimmäisiä profiileja?</strong>
+                <span>Luo oma profiili tai pyydä järjestäjää ottamaan kuva Ovikameralla!</span>
               </div>
               <div class="slideshow-overlay">
                 <div class="slideshow-credit">
@@ -57,21 +57,13 @@
               Galleria päivittyy automaattisesti uusilla kuvilla.
             </div>
           </div>
-          <aside class="qr-panel" aria-label="QR-koodit">
+          <aside class="qr-panel" aria-label="Profiilin luonti">
             <section class="qr-option">
               <h2>Luo profiili</h2>
-              <p>Valitse nimimerkki ja profiilikuva.</p>
+              <p>Skannaa QR-koodi, valitse nimimerkki ja lisää profiilikuva.</p>
               <a id="profile-qr-link" class="qr-link" href="index.html#oma-profiili">
                 <img id="profile-qr" alt="QR-koodi profiilin luomiseen">
                 <span id="profile-qr-fallback" hidden>Avaa profiilin luonti</span>
-              </a>
-            </section>
-            <section class="qr-option">
-              <h2>Lisää juhlakuvia</h2>
-              <p>Lähetä kuva puhelimestasi näytölle.</p>
-              <a id="upload-qr-link" class="qr-link" href="lataa.html">
-                <img id="upload-qr" alt="QR-koodi juhlakuvan lähetykseen">
-                <span id="qr-fallback" hidden>Avaa kuvien lähetyssivu</span>
               </a>
             </section>
           </aside>
