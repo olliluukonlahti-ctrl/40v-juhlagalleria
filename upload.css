@@ -27,3 +27,13 @@
   .upload-main { width: calc(100% - 20px); margin-top: 14px; }
   .selected-photos { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+
+.upload-main .box-title h1 { color: #ffd35a; }
+.upload-intro { color: #d0dce5; }
+.upload-size-note, .selected-photos > span { color: #c7d4df; }
+.selected-photos figure {
+  border-color: #58768e;
+  background: #193550;
+}
+.selected-photos img { background: #203e5a; }
+.selected-photos figcaption { color: #bdcbd6; }

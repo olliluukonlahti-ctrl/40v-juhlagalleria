@@ -23,3 +23,30 @@
   .admin-list { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
   .admin-item img { height: 135px; }
 }
+
+.admin-password-form {
+  border-color: #55738b;
+  background: #203e5a;
+}
+.admin-password-form input {
+  border-color: #8299aa;
+  color: #333;
+  background: #fff;
+}
+.admin-main h2 { color: #ffd35a; }
+.admin-item {
+  border-color: #58768e;
+  color: #d7e1e9;
+  background: #1b3855;
+}
+.admin-item-details span { color: #c7d4df; }
+.admin-reload-button {
+  border-color: #6c879c;
+  color: #f1c754;
+  background: #284867;
+}
+.admin-warning {
+  border-color: #b98f37;
+  color: #ffe28a;
+  background: #3a321f;
+}
