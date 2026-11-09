@@ -7,8 +7,11 @@ Sivut:
 - Kuvien lataus puhelimesta: https://olliluukonlahti-ctrl.github.io/40v-juhlagalleria/lataa.html
 - Juhlanäyttö ja QR-koodit: https://olliluukonlahti-ctrl.github.io/40v-juhlagalleria/naytto.html
 - Järjestäjän kuvahallinta: https://olliluukonlahti-ctrl.github.io/40v-juhlagalleria/hallinta.html
+- Ovikamera (kokeilu): https://olliluukonlahti-ctrl.github.io/40v-juhlagalleria/door-camera.html
 
 Suomenkielinen, mobiiliystävällinen juhlagalleria 40-vuotisjuhliin. Saapuessaan vieras luo nimimerkin ja lisää profiilikuvan ilman salasanaa tai kirjautumista. Erillisessä TV-näkymässä pyörii nimimerkillä varustettu profiilikuvagalleria ja kaikkien juhlakuvien diaesitys. Vieraat skannaavat näytön QR-koodin ja lisäävät puhelimestaan yhden tai useamman kuvan yhteiseen diaesitykseen; QR-kuvat eivät linkity nimimerkkiin. Profiilit ja kuvat jaetaan laitteiden välillä Supabasen kautta.
+
+Ovikamera on erillinen kokeilusivu järjestäjälle: kirjoita uusi nimimerkki, käynnistä kamera, ota kuva ja julkaise se erillisellä painikkeella. Kamera vaatii selaimen käyttöluvan ja HTTPS-yhteyden. Sivua ei ole lisätty vieraiden navigaatioon, mutta se ei ole salasanalla suojattu; jaa sen osoite vain järjestäjille. Julkaistu kuva ja nimimerkki tulevat julkiseen galleriaan.
 
 Ulkoasu hakee tarkoituksella 2000-luvun alkupuolen IRC-gallerioista: kiinteä, keskitetty sivu, sininen välilehtipalkki, tiiviit laatikot ja vanhan ajan Arial/Tahoma-typografia. Puhelimessa palstat pinoutuvat, mutta sama retroilme säilyy.
 
