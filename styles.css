@@ -14,7 +14,7 @@ button, input, textarea { font: inherit; }
 button, a, label { -webkit-tap-highlight-color: transparent; }
 
 .page-shell {
-  width: 960px;
+  width: min(1440px, calc(100% - 32px));
   max-width: calc(100% - 24px);
   margin: 14px auto 28px;
   border: 1px solid #8aabc2;
