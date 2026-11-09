@@ -6,6 +6,7 @@
   const video = document.getElementById("door-video");
   const preview = document.getElementById("door-preview");
   const placeholder = document.getElementById("door-placeholder");
+  const countdown = document.getElementById("door-countdown");
   const startButton = document.getElementById("start-camera");
   const captureButton = document.getElementById("take-photo");
   const retakeButton = document.getElementById("retake-photo");
@@ -14,6 +15,7 @@
   let stream = null;
   let capturedPhoto = null;
   let previewUrl = "";
+  let countdownTimer = 0;
 
   function setMessage(text, kind) {
     message.textContent = text;
@@ -30,6 +32,10 @@
   }
 
   function resetCapture() {
+    window.clearTimeout(countdownTimer);
+    countdownTimer = 0;
+    countdown.hidden = true;
+    countdown.textContent = "";
     capturedPhoto = null;
     if (previewUrl) {
       URL.revokeObjectURL(previewUrl);
@@ -42,6 +48,44 @@
     captureButton.hidden = true;
     retakeButton.hidden = true;
     publishButton.hidden = true;
+  }
+
+  function capturePhoto() {
+    if (!stream || !video.videoWidth || !video.videoHeight) {
+      setMessage("Kamera ei ole vielä valmis. Yritä hetken kuluttua uudelleen.", "error");
+      captureButton.disabled = false;
+      return;
+    }
+    const scale = Math.min(1, 1600 / Math.max(video.videoWidth, video.videoHeight));
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.max(1, Math.round(video.videoWidth * scale));
+    canvas.height = Math.max(1, Math.round(video.videoHeight * scale));
+    const context = canvas.getContext("2d");
+    if (!context) {
+      setMessage("Kuvaa ei voitu käsitellä tässä selaimessa.", "error");
+      captureButton.disabled = false;
+      return;
+    }
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    canvas.toBlob(function (blob) {
+      if (!blob) {
+        setMessage("Kuvan ottaminen epäonnistui. Yritä uudelleen.", "error");
+        captureButton.disabled = false;
+        return;
+      }
+      capturedPhoto = new File([blob], "ovikuva.jpg", { type: "image/jpeg" });
+      previewUrl = URL.createObjectURL(capturedPhoto);
+      preview.src = previewUrl;
+      preview.hidden = false;
+      video.hidden = true;
+      placeholder.hidden = true;
+      captureButton.hidden = true;
+      captureButton.disabled = false;
+      retakeButton.hidden = false;
+      publishButton.hidden = false;
+      stopCamera();
+      setMessage("Tarkista kuva ja nimimerkki. Mitään ei julkaista ennen Julkaise profiili -painallusta.", "");
+    }, "image/jpeg", 0.9);
   }
 
   async function startCamera() {
@@ -78,38 +122,23 @@
     }
   });
 
-  captureButton.addEventListener("click", function () {
-    if (!stream || !video.videoWidth || !video.videoHeight) {
-      setMessage("Kamera ei ole vielä valmis. Yritä hetken kuluttua uudelleen.", "error");
-      return;
+  captureButton.addEventListener("click", async function () {
+    captureButton.disabled = true;
+    countdown.hidden = false;
+    for (const number of ["3…", "2…", "1…"]) {
+      countdown.textContent = number;
+      await new Promise(function (resolve) {
+        countdownTimer = window.setTimeout(resolve, 900);
+      });
     }
-    const scale = Math.min(1, 1600 / Math.max(video.videoWidth, video.videoHeight));
-    const canvas = document.createElement("canvas");
-    canvas.width = Math.max(1, Math.round(video.videoWidth * scale));
-    canvas.height = Math.max(1, Math.round(video.videoHeight * scale));
-    const context = canvas.getContext("2d");
-    if (!context) {
-      setMessage("Kuvaa ei voitu käsitellä tässä selaimessa.", "error");
-      return;
-    }
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    canvas.toBlob(function (blob) {
-      if (!blob) {
-        setMessage("Kuvan ottaminen epäonnistui. Yritä uudelleen.", "error");
-        return;
-      }
-      capturedPhoto = new File([blob], "ovikuva.jpg", { type: "image/jpeg" });
-      previewUrl = URL.createObjectURL(capturedPhoto);
-      preview.src = previewUrl;
-      preview.hidden = false;
-      video.hidden = true;
-      placeholder.hidden = true;
-      captureButton.hidden = true;
-      retakeButton.hidden = false;
-      publishButton.hidden = false;
-      stopCamera();
-      setMessage("Tarkista kuva ja nimimerkki. Mitään ei julkaista ennen Julkaise profiili -painallusta.", "");
-    }, "image/jpeg", 0.9);
+    countdown.textContent = "📸";
+    await new Promise(function (resolve) {
+      countdownTimer = window.setTimeout(resolve, 250);
+    });
+    countdown.hidden = true;
+    countdown.textContent = "";
+    countdownTimer = 0;
+    capturePhoto();
   });
 
   retakeButton.addEventListener("click", async function () {

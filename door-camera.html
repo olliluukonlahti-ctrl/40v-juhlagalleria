@@ -7,10 +7,10 @@
     <meta name="description" content="Ota juhlavieraasta kuva ja luo hänelle nimimerkkiprofiili juhlagalleriaan.">
     <title>Ovikamera — 40v. Juhlagalleria</title>
     <link rel="stylesheet" href="styles.css?v=20261109-1929">
-    <link rel="stylesheet" href="door-camera.css?v=1">
+    <link rel="stylesheet" href="door-camera.css?v=20261109-2150">
     <script src="config.js"></script>
     <script src="backend.js?v=20261109-2000" defer></script>
-    <script src="door-camera.js?v=20261109-2000" defer></script>
+    <script src="door-camera.js?v=20261109-2150" defer></script>
   </head>
   <body class="door-page">
     <div class="page-shell door-shell">
@@ -41,6 +41,7 @@
           <div class="door-camera-frame">
             <video id="door-video" autoplay muted playsinline hidden></video>
             <img id="door-preview" alt="Kuva, joka julkaistaan profiilikuvana" hidden>
+            <div id="door-countdown" class="door-countdown" aria-live="assertive" hidden></div>
             <div id="door-placeholder" class="door-placeholder">
               <span aria-hidden="true">:-)</span>
               <strong>Kamera ei ole käynnissä</strong>
