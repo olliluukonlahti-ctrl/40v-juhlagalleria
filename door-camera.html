@@ -34,10 +34,6 @@
           <p>Kirjoita vieraan nimimerkki, ota kuva ja tarkista se ennen julkaisua.</p>
         </section>
         <form id="door-form" class="door-form">
-          <label class="field-label" for="door-nickname">Vieraan nimimerkki</label>
-          <input id="door-nickname" name="nickname" type="text" maxlength="24" autocomplete="off" placeholder="esim. diskokuningas" required>
-          <p class="door-note">Jokaiselle kuvalle luodaan uusi profiili. Nimimerkin tulee olla vielä käyttämätön.</p>
-
           <div class="door-camera-frame">
             <video id="door-video" autoplay muted playsinline hidden></video>
             <img id="door-preview" alt="Kuva, joka julkaistaan profiilikuvana" hidden>
@@ -48,6 +44,10 @@
               <span>Kamera avautuu vasta painikkeesta.</span>
             </div>
           </div>
+
+          <label class="field-label" for="door-nickname">Vieraan nimimerkki</label>
+          <input id="door-nickname" name="nickname" type="text" maxlength="24" autocomplete="off" placeholder="esim. diskokuningas" required>
+          <p class="door-note">Jokaiselle kuvalle luodaan uusi profiili. Nimimerkin tulee olla vielä käyttämätön.</p>
 
           <label class="door-consent-check">
             <input id="door-consent" type="checkbox" required>
