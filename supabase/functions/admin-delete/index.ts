@@ -66,7 +66,7 @@ Deno.serve(async (request) => {
   if (body.type === "verify") {
     return jsonResponse(200, "Ylläpitäjän salasana hyväksytty.");
   }
-  if (!isUuid(body.id) || (body.type !== "photo" && body.type !== "profile")) {
+  if (!isUuid(body.id) || (body.type !== "photo" && body.type !== "profile" && body.type !== "message")) {
     return jsonResponse(400, "Poistettava kohde ei kelpaa.");
   }
 
@@ -90,6 +90,14 @@ Deno.serve(async (request) => {
   };
 
   try {
+    if (body.type === "message") {
+      const deleted = await restRequest(`party_messages?id=eq.${body.id}`, {
+        method: "DELETE",
+      });
+      if (!deleted.ok) return jsonResponse(502, "Chat-viestin poisto epäonnistui.");
+      return jsonResponse(200, "Chat-viesti poistettu.");
+    }
+
     if (body.type === "photo") {
       const result = await restRequest(
         `profile_photos?select=id,profile_id,photo_path&id=eq.${body.id}&limit=1`,

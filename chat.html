@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="fi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#142a40">
+    <meta name="description" content="Tervehdi juhlaväkeä 2000-luvun chat-hengessä.">
+    <title>Juhla-chat — 40v. Juhlagalleria</title>
+    <link rel="stylesheet" href="styles.css?v=20261109-1929">
+    <link rel="stylesheet" href="terveisseina.css?v=20261110-1030">
+    <script src="config.js"></script>
+    <script src="backend.js?v=20261110-1810" defer></script>
+    <script src="terveisseina.js?v=20261110-1030" defer></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <div class="masthead">
+          <a class="brand" href="index.html" aria-label="Takaisin juhlagalleriaan">
+            <span class="brand-mark" aria-hidden="true">☺</span>
+            <span>IRC<span class="brand-accent">-Juhlagalleria</span></span>
+          </a>
+          <div class="header-note"><span class="online-dot"></span> JUHLAT KÄYNNISSÄ</div>
+        </div>
+        <nav class="main-nav" aria-label="Päänavigaatio">
+          <a href="index.html">Etusivu</a>
+          <a href="naytto.html">Juhlanäyttö</a>
+          <a href="door-camera.html">Ovikamera</a>
+          <a class="active" href="chat.html">Juhla-chat</a>
+        </nav>
+      </header>
+      <main class="chat-page-main">
+        <section class="welcome-box">
+          <div class="welcome-stamp" aria-hidden="true">#<br><small>CHAT</small></div>
+          <div>
+            <p class="eyebrow">TERVEISET JUHLISTA</p>
+            <h1>Juhla-chat</h1>
+            <p class="hero-lead">Tervehdi juhlaväkeä tai hyppää mukaan keskusteluun!</p>
+          </div>
+        </section>
+        <section class="party-chat" aria-labelledby="party-chat-title">
+          <div class="box-title">
+            <h2 id="party-chat-title"># 40v-juhlat</h2>
+            <span class="chat-online"><span class="online-dot"></span> JUHLAT KÄYNNISSÄ</span>
+          </div>
+          <div class="chat-channel">Tervetuloa mukaan! <span>— Kirjoita nimimerkillä viesti juhlaväelle.</span></div>
+          <div class="chat-room">
+            <ol class="chat-messages" data-party-messages aria-label="Juhla-chatin viestit"></ol>
+          </div>
+          <form id="guestbook-form" class="chat-compose">
+            <div class="chat-compose-fields">
+              <label>
+                <span>Nimimerkki</span>
+                <input id="guestbook-nickname" name="nickname" type="text" maxlength="24" autocomplete="nickname" placeholder="esim. diskokuningas" required>
+              </label>
+              <label class="chat-message-field">
+                <span>Viesti</span>
+                <input id="guestbook-message" name="message" type="text" maxlength="200" placeholder="Kirjoita tervehdys..." required>
+              </label>
+              <button id="guestbook-submit" class="primary-button" type="submit">Lähetä tervehdys »</button>
+            </div>
+            <p class="chat-hint">Ei kirjautumista. Viesti näkyy kaikille juhlasivun kävijöille. Käytäthän omaa nimimerkkiäsi.</p>
+            <p id="guestbook-form-message" class="form-message" role="status" aria-live="polite"></p>
+          </form>
+          <p id="guestbook-status" class="chat-status" role="status" aria-live="polite">Yhdistetään chattiin…</p>
+        </section>
+      </main>
+      <footer class="site-footer">
+        <span>IRC-Juhlagalleria &copy; 2026</span>
+        <a href="index.html">« Takaisin galleriaan</a>
+      </footer>
+    </div>
+  </body>
+</html>

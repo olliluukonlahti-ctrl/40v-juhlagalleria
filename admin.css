@@ -12,6 +12,7 @@
 .admin-item img { display: block; width: 100%; height: 170px; object-fit: cover; background: #e6edf3; }
 .admin-item-details { display: grid; gap: 6px; padding-top: 8px; }
 .admin-item-details span { color: #596c7f; font-size: 12px; }
+.admin-message-item p { margin: 0; color: #d7e1e9; overflow-wrap: anywhere; white-space: pre-wrap; }
 .admin-delete-button { justify-self: start; padding: 7px 10px; border: 1px solid #962b2b; background: #b23a3a; color: #fff; font: inherit; cursor: pointer; }
 .admin-delete-button:hover { background: #8d2929; }
 .admin-reload-button { padding: 7px 10px; border: 1px solid #829bb1; background: #f3f6f9; color: #214e79; font: inherit; cursor: pointer; }
@@ -40,6 +41,7 @@
   background: #1b3855;
 }
 .admin-item-details span { color: #c7d4df; }
+.admin-message-item p { color: #d7e1e9; }
 .admin-reload-button {
   border-color: #6c879c;
   color: #f1c754;

@@ -104,6 +104,23 @@
     return checkResponse(response).then(function (result) { return result.json(); });
   }
 
+  async function loadPartyMessages() {
+    const cutoff = encodeURIComponent(new Date(Date.now() - 72 * 60 * 60 * 1000).toISOString());
+    const response = await request("/rest/v1/party_messages?select=id,nickname,message,created_at&created_at=gte." + cutoff + "&order=created_at.desc,id.desc&limit=50", {
+      cache: "no-store"
+    });
+    return checkResponse(response).then(function (result) { return result.json(); });
+  }
+
+  async function postPartyMessage(nickname, message) {
+    const response = await request("/rest/v1/rpc/post_party_message", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ p_nickname: nickname, p_message: message })
+    });
+    return checkResponse(response).then(function (result) { return result.json(); });
+  }
+
   async function createProfile(nickname, photoPath) {
     const response = await request("/rest/v1/rpc/create_guest_profile", {
       method: "POST",
@@ -119,6 +136,15 @@
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ type: "photo", id: photoId, password: password })
+    });
+    return checkResponse(response).then(function (result) { return result.json(); });
+  }
+
+  async function deletePartyMessage(messageId, password) {
+    const response = await request("/functions/v1/admin-delete", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ type: "message", id: messageId, password: password })
     });
     return checkResponse(response).then(function (result) { return result.json(); });
   }
@@ -149,12 +175,15 @@
   window.GalleryBackend = {
     createProfile: createProfile,
     deletePartyPhoto: deletePartyPhoto,
+    deletePartyMessage: deletePartyMessage,
     deleteProfile: deleteProfile,
     verifyAdminPassword: verifyAdminPassword,
     getPhotoUrl: getPhotoUrl,
     loadPhotos: loadPhotos,
+    loadPartyMessages: loadPartyMessages,
     loadProfilePhotos: loadProfilePhotos,
     loadProfiles: loadProfiles,
+    postPartyMessage: postPartyMessage,
     request: request,
     uploadPhoto: uploadPhoto
   };

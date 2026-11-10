@@ -6,6 +6,7 @@
   const message = document.getElementById("admin-message");
   const profilesContainer = document.getElementById("admin-profiles");
   const photosContainer = document.getElementById("admin-photos");
+  const messagesContainer = document.getElementById("admin-messages");
   const reloadButton = document.getElementById("admin-reload");
   let busy = false;
   let verified = false;
@@ -58,6 +59,20 @@
     }
   }
 
+  async function removeMessage(chatMessage) {
+    if (busy || !confirmDelete("nimimerkin " + chatMessage.nickname + " viesti")) return;
+    busy = true;
+    try {
+      await window.GalleryBackend.deletePartyMessage(chatMessage.id, passwordInput.value);
+      setMessage("Chat-viesti poistettiin.", false);
+      await loadItems();
+    } catch (error) {
+      setMessage("Chat-viestin poisto epäonnistui: " + error.message, true);
+    } finally {
+      busy = false;
+    }
+  }
+
   function createItem(imagePath, title, caption, deleteLabel, onDelete) {
     const item = document.createElement("article");
     item.className = "admin-item";
@@ -77,6 +92,26 @@
     return item;
   }
 
+  function createMessageItem(chatMessage) {
+    const item = document.createElement("article");
+    item.className = "admin-item admin-message-item";
+    const details = document.createElement("div");
+    details.className = "admin-item-details";
+    const heading = document.createElement("strong");
+    heading.textContent = chatMessage.nickname;
+    const date = new Date(chatMessage.created_at);
+    const time = document.createElement("span");
+    time.textContent = Number.isNaN(date.getTime()) ? "" : date.toLocaleString("fi-FI");
+    const text = document.createElement("p");
+    text.textContent = chatMessage.message;
+    const removeButton = button("Poista viesti", "admin-delete-button", function () {
+      removeMessage(chatMessage);
+    });
+    details.append(heading, time, text, removeButton);
+    item.append(details);
+    return item;
+  }
+
   async function loadItems() {
     if (!verified) return;
     reloadButton.disabled = true;
@@ -89,6 +124,7 @@
       const photos = results[1];
       profilesContainer.replaceChildren();
       photosContainer.replaceChildren();
+      messagesContainer.replaceChildren();
       if (!profiles.length) {
         profilesContainer.textContent = "Profiileja ei ole vielä.";
       } else {
@@ -120,6 +156,18 @@
             function () { removePhoto(photo); }
           ));
         });
+      }
+      try {
+        const chatMessages = await window.GalleryBackend.loadPartyMessages();
+        if (!chatMessages.length) {
+          messagesContainer.textContent = "Chatissa ei ole vielä viestejä.";
+        } else {
+          chatMessages.forEach(function (chatMessage) {
+            messagesContainer.appendChild(createMessageItem(chatMessage));
+          });
+        }
+      } catch (error) {
+        messagesContainer.textContent = "Chat-viestien lataus epäonnistui: " + error.message;
       }
       setMessage("Kuvat päivitetty.", false);
     } catch (error) {

@@ -29,7 +29,7 @@ jobs:
       - name: Prepare site files
         run: |
           mkdir public
-          cp index.html hallinta.html naytto.html door-camera.html admin.js admin.css app.js backend.js config.js naytto.js door-camera.js styles.css screen.css door-camera.css CNAME public/
+          cp index.html chat.html hallinta.html naytto.html door-camera.html admin.js admin.css app.js backend.js config.js naytto.js door-camera.js terveisseina.js styles.css screen.css door-camera.css terveisseina.css CNAME public/
       - name: Upload site files
         uses: actions/upload-pages-artifact@v3
         with:
